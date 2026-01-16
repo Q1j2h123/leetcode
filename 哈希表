@@ -1,0 +1,35 @@
+#哈希表
+
+## 1.map
+
+### 1.1 思想
+
+通过存储键值对建立映射关系
+
+#### [219. 存在重复元素 II](https://leetcode.cn/problems/contains-duplicate-ii/description/)
+
+```c
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        int n=nums.size();
+        unordered_map<int,int>map;
+        for(int i=0;i<n;i++){
+            if(map.find(nums[i])==map.end()){//如果nums[i]不在map中，将{nums[i],i}插入map中
+                map[nums[i]]=i;
+            }else{//如果存在，当前位置与最开始的下标作差
+               int pos=map[nums[i]];
+                if(abs(i-pos)<=k){
+                    return true;
+                }else{//如果距离大于k 则更新最新的nums[i]
+               map[nums[i]]=i;
+                }
+             
+            }  
+        }
+       return false;
+    }
+};
+
+```
+
